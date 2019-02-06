@@ -2,13 +2,13 @@
   <v-layout>
     <v-flex sm11>
         <v-toolbar color="blue">
-          <v-toolbar-title clipped-left>Znajomi</v-toolbar-title>
+          <v-toolbar-title clipped-left>Wysłane</v-toolbar-title>
         </v-toolbar>
         <v-list>
-          <v-list-tile v-for="friend in friends" :key="friend.id">
+          <v-list-tile v-for="sent in sent" :key="sent.id">
             <v-list-tile-content>
               <v-card>
-                {{ friend.username }}
+                {{ sent.username }}
               </v-card>
             </v-list-tile-content>
           </v-list-tile>
@@ -18,18 +18,18 @@
 </template>
 
 <script>
-	import config  from "@/configuration";
-	import API from '@/api';
 
 	export default {
-		name: "FriendsList",
+		name: "SentList",
 
     props: [
-      'friends'
+      'sent'
     ],
+
 
 	}
 </script>
 
 <style scoped lang="scss">
+
 </style>

@@ -3,11 +3,11 @@
 
         <v-layout class="fill-height" tag="v-list" column>
             <v-list-tile avatar>
-                <v-list-tile-avatar>
-                    <v-img src="./img/msm.png" contain/>
+                <v-list-tile-avatar icon color="blue">
+                    <v-icon>fa-box-open</v-icon>
                 </v-list-tile-avatar>
                 <v-list-tile-title class="title">
-                    TAI BOX
+                    TAIBOX
                 </v-list-tile-title>
             </v-list-tile>
 

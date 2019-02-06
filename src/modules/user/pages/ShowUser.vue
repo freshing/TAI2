@@ -1,5 +1,5 @@
 <template>
-    <card text="Dane użytkownika">
+    <card title="Dane użytkownika">
       <v-layout justify-center row>
           <v-flex xs3>
               <v-card tile flat color="grey lighten-5">

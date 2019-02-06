@@ -14,6 +14,10 @@
   export default {
     name: "Upload",
 
+    props: [
+      'path'
+    ],
+
     data() {
       return {
         file: "",
@@ -30,7 +34,8 @@
       submitFile() {
         const formData = new FormData();
         formData.append('f', this.file);
-        API.uploadFile(formData);
+        API.uploadFile(formData, this.$props['path']);
+        this.$emit('uploadFile');
       }
     }
   }

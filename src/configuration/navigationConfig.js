@@ -5,9 +5,9 @@ const userNavigation = [
         icon: 'home'
     },
     {
-        text: 'Moje pliki',
+        text: 'Udostępnione',
         url: '/files',
-        icon: 'fa-file'
+        icon: 'fa-share-square'
     },
     {
         text: 'Znajomi',

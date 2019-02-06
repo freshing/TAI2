@@ -1,21 +1,21 @@
 <template>
   <v-layout>
-    <v-flex xs11>
+    <v-flex sm11>
         <v-toolbar color="blue">
           <v-toolbar-title clipped-left>Zaproszenia</v-toolbar-title>
         </v-toolbar>
         <v-list>
-          <v-list-tile v-for="request in requests" :key="request.data.id">
+          <v-list-tile v-for="request in requests" :key="request.id">
             <v-list-tile-content>
               <v-card>
-                {{ request.data.username }}
+                {{ request.username }}
               </v-card>
             </v-list-tile-content>
 
-            <v-btn @click="accept(request.data.id)" color="blue" icon flat>
+            <v-btn @click="accept(request.id)" color="blue" icon flat>
                 <v-icon>fa-check</v-icon>
             </v-btn>
-            <v-btn @click="reject(request.data.id)" color="blue" icon flat>
+            <v-btn @click="reject(request.id)" color="blue" icon flat>
                 <v-icon>fa-ban</v-icon>
             </v-btn>
 
@@ -32,38 +32,32 @@
 	export default {
 		name: "RequestsList",
 
-		data: () => ({
-      requests: [],
-		}),
+    props: [
+      'requests'
+    ],
 
 		methods: {
       accept(id) {
-        console.log("accept", id);
+        let user = {
+          from_user: id,
+        }
+        API.acceptFriend(user);
+        this.$emit('update');
       },
 
       reject(id) {
-        console.log("reject", id);
+        let user = {
+          from_user: id,
+        }
+        API.rejectFriend(user);
+        this.$emit('update');
       },
 
-			loadRequests() {
-				API.loadRequests()
-					.then( requests => {
-            this.requests = requests;
-					});
-			},
-
-		},
-
-		mounted() {
-			this.loadRequests();
 		},
 
 	}
 </script>
 
 <style scoped lang="scss">
-    #dayspan {
-        height: 100%;
-        min-height: 1000px;
-    }
+
 </style>

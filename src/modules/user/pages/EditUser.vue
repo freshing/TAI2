@@ -34,7 +34,7 @@
             <v-spacer></v-spacer>
             <v-btn :loading="sended"
                    :disabled="sended"
-                   color="blue darken-2 white--text"
+                   color="blue white--text"
                    @click="submit">Wyślij</v-btn>
         </template>
     </card>
@@ -65,7 +65,6 @@
 			submit() {
 				if (this.$refs.form.validate()) {
 					this.sended = true;
-					// this.userForm.personId = this.userId;
 					API.changePassword(this.userForm)
                         .catch(() => this.sended = false);
 				}

@@ -2,18 +2,15 @@
   <v-layout>
     <v-flex sm12>
         <v-toolbar color="blue">
-          <v-toolbar-title clipped-left>Użytkownicy</v-toolbar-title>
+          <v-toolbar-title clipped-left>Odrzuceni</v-toolbar-title>
         </v-toolbar>
         <v-list>
-          <v-list-tile v-for="user in users" :key="user.id">
+          <v-list-tile v-for="rejected in rejected" :key="rejected.id">
             <v-list-tile-content>
               <v-card>
-                {{ user.username }}
+                {{ rejected.username }}
               </v-card>
             </v-list-tile-content>
-            <v-btn @click="addFriend(user.id)" color="blue" icon flat>
-                <v-icon>fa-plus-square</v-icon>
-            </v-btn>
           </v-list-tile>
         </v-list>
     </v-flex>
@@ -29,24 +26,11 @@
 		name: "UsersList",
 
     props: [
-      'users'
+      'rejected'
     ],
-
-		methods: {
-      addFriend(id) {
-        let user = {
-          to_user: id
-        }
-
-        API.addFriend(user);
-        this.$emit('update');
-      },
-
-		},
 
 	}
 </script>
 
 <style scoped lang="scss">
-
 </style>

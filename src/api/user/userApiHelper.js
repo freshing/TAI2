@@ -2,6 +2,7 @@ function parseUserFromApi(user) {
 	return {
 		username: user.username,
 		email: user.email,
+		id: user.pk,
 	};
 }
 
@@ -15,6 +16,7 @@ function getEmptyUserForm() {
 	return {
 		username: "",
 		email: "",
+		id: "",
 	};
 }
 

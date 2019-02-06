@@ -37,7 +37,7 @@ export default {
   props: {
     color: {
       type: String,
-      default: 'blue darken-2'
+      default: 'blue'
     },
     elevation: {
       type: [Number, String],

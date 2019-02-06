@@ -44,6 +44,13 @@ function getConfigWithoutCredentials() {
 	return config;
 }
 
+function getConfigWithFile() {
+	var config = {
+		responseType: 'blob',
+	}
+	return config;
+}
+
 export default {
 	API_URL,
 	onRequestListener,
@@ -51,4 +58,5 @@ export default {
 	onResponseErrorListener,
 	addCsrfHeader,
 	getConfigWithoutCredentials,
+	getConfigWithFile,
 }
