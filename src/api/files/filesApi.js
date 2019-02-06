@@ -47,6 +47,14 @@ function getSharedFiles() {
 		.catch(() => handleApiError("Wystąpił błąd podczas wysyłania pliku. Skontaktuj się z Administratorem."));
 }
 
+function getStats(path) {
+	return http.get('/stats/?dir=' + path)
+		.then(response => {
+			return response.data;
+		})
+		.catch(() => handleApiError("Wystąpił błąd podczas wysyłania pliku. Skontaktuj się z Administratorem."));
+}
+
 function download(path) {
 	let splitPath = path.split('/');
 	let fileName = splitPath[splitPath.length - 1];

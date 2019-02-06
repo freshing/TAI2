@@ -45,6 +45,7 @@
        </td>
        <td>{{ props.item.name }}</td>
        <td class="text-xs-center">{{ props.item.creation_date }}</td>
+       <td class="text-xs-center">{{ 3 }}</td>
        <td class="text-xs-center">
          <v-btn @click="download(props.item.name)" icon color="blue" flat v-if=!props.item.is_dir>
            <v-icon>fa-download</v-icon>
@@ -54,6 +55,9 @@
          </v-btn>
          <v-btn @click="deleteItem(props.item.path)" icon color="blue" flat>
            <v-icon>fa-trash</v-icon>
+         </v-btn>
+         <v-btn @click="deleteItem(props.item.path)" icon color="blue" flat>
+           <v-icon>fa-lock</v-icon>
          </v-btn>
        </td>
        <td class="text-xs-center">
@@ -92,6 +96,7 @@
           value: 'name'
         },
         { text: 'Utworzono', value: 'is_dir' },
+        { text: 'Pobrania' },
         { text: 'Akcje'},
         { text: 'Udostępnij'},
       ],
