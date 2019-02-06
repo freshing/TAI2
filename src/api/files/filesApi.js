@@ -24,6 +24,13 @@ function shareItem(props) {
 		.catch(() => handleApiError("Wystąpił błąd podczas udostępniania pliku. Skontaktuj się z Administratorem."));
 }
 
+function unshare(path) {
+	return http.delete('/share/' + path, config.addCsrfHeader())
+		.then(response => {
+		})
+		.catch(() => handleApiError("Wystąpił błąd podczas udostępniania pliku. Skontaktuj się z Administratorem."));
+}
+
 function deleteItem(name) {
 	return http.delete('/files/' + name + '/', config.addCsrfHeader())
 		.then(response => {
@@ -39,7 +46,7 @@ function getFiles(path) {
 		.catch(() => handleApiError("Wystąpił błąd podczas wysyłania pliku. Skontaktuj się z Administratorem."));
 }
 
-function getSharedFiles() {
+function getReceivedFiles() {
 	return http.get('/share/')
 		.then(response => {
 			return response.data;
@@ -47,8 +54,16 @@ function getSharedFiles() {
 		.catch(() => handleApiError("Wystąpił błąd podczas wysyłania pliku. Skontaktuj się z Administratorem."));
 }
 
+function getSharedFiles() {
+	return http.get('/share/my/')
+		.then(response => {
+			return response.data;
+		})
+		.catch(() => handleApiError("Wystąpił błąd podczas wysyłania pliku. Skontaktuj się z Administratorem."));
+}
+
 function getStats(path) {
-	return http.get('/stats/?dir=' + path)
+	return http.get('/users/stats/?dir=' + path)
 		.then(response => {
 			return response.data;
 		})
@@ -68,6 +83,30 @@ function download(path) {
 		  document.body.appendChild(link);
 		  link.click();
 		})
+		.catch(() => handleApiError("Wystąpił błąd podczas pobierania pliku. Skontaktuj się z Administratorem."));
+}
+
+function downloadShared(path, filename) {
+	// let splitPath = path.split('/');
+	// let fileName = splitPath[splitPath.length - 1];
+	return http.get('/share/' + path, config.getConfigWithFile())
+		.then(response => {
+			// console.log('response', filename);
+			const url = window.URL.createObjectURL(new Blob([response.data]));
+		  const link = document.createElement('a');
+		  link.href = url;
+		  link.setAttribute('download', filename);
+		  document.body.appendChild(link);
+		  link.click();
+		})
+		.catch(() => handleApiError("Wystąpił błąd podczas pobierania pliku. Skontaktuj się z Administratorem."));
+}
+
+function encrypt(path, props) {
+	return http.post('/encrypt' + path, props, config.addCsrfHeader())
+		.then(response => {
+			return response.data;
+		})
 		.catch(() => handleApiError("Wystąpił błąd podczas wysyłania pliku. Skontaktuj się z Administratorem."));
 }
 
@@ -76,7 +115,12 @@ export default {
 	addDirectory,
 	getFiles,
 	getSharedFiles,
+	getReceivedFiles,
 	download,
+	downloadShared,
 	deleteItem,
 	shareItem,
+	unshare,
+	encrypt,
+	getStats,
 }

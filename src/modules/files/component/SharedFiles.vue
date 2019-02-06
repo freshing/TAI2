@@ -11,10 +11,10 @@
  >
    <template slot="headers" slot-scope="props">
      <tr>
-       <th>
+       <!-- <th>
          <v-btn icon @click="back()" icon color="blue" flat :disabled="$props['path'] === ''">
            <v-icon>fa-level-up-alt</v-icon>
-         </v-btn>
+         </v-btn> -->
          <!-- <v-checkbox
            :input-value="props.all"
            :indeterminate="props.indeterminate"
@@ -22,7 +22,7 @@
            hide-details
            @click.stop="toggleAll"
          ></v-checkbox> -->
-       </th>
+       <!-- </th> -->
        <th
          v-for="header in props.headers"
          :key="header.text"
@@ -36,25 +36,25 @@
    </template>
    <template slot="items" slot-scope="props">
      <tr :active="props.selected" @click="props.selected = !props.selected">
-       <td>
+       <!-- <td width="10%"> -->
          <!-- <v-checkbox
            :input-value="props.selected"
            primary
            hide-details
          ></v-checkbox> -->
-       </td>
+       <!-- </td> -->
        <td>{{ props.item.filename }}</td>
-       <td class="text-xs-center">{{ props.item.creation_date }}</td>
+       <!-- <td class="text-xs-center">{{ props.item.creation_date }}</td> -->
        <td class="text-xs-center">
-         <v-btn @click="download(props.item.name)" icon color="blue" flat v-if=!props.item.is_dir>
+         <!-- <v-btn @click="download(props.item.name)" icon color="blue" flat v-if=!props.item.is_dir>
            <v-icon>fa-download</v-icon>
          </v-btn>
          <v-btn @click="changePath(props.item.path)" icon color="blue" flat v-if=props.item.is_dir>
            <v-icon>fa-folder-open</v-icon>
-         </v-btn>
-         <!-- <v-btn @click="deleteItem(props.item.path)" icon color="blue" flat>
-           <v-icon>fa-trash</v-icon>
          </v-btn> -->
+         <v-btn @click="unshare(props.item.id)" icon color="blue" flat>
+           <v-icon>fa-undo</v-icon>
+         </v-btn>
        </td>
        <!-- <td class="text-xs-center">
          <v-btn @click="share(props.item.path)" icon color="blue" flat>
@@ -91,9 +91,9 @@
           align: 'left',
           value: 'name'
         },
-        { text: 'Utworzono', value: 'is_dir' },
+        // { text: 'Utworzono', value: 'is_dir' },
         { text: 'Akcje'},
-        { text: 'Udostępnij'},
+        // { text: 'Udostępnij'},
       ],
 		}),
 
@@ -105,14 +105,15 @@
       // 	"shared_with": [1]
       // }
 
-      share(path) {
-        let props = {
-        	path: path,
-        	is_public: false,
-        	shared_with: this.friends
-        }
+      unshare(path) {
+        // let props = {
+        // 	path: path,
+        // 	is_public: false,
+        // 	shared_with: this.friends
+        // }
 
-        API.shareItem(props);
+        API.unshare(path);
+        this.$emit('unshare');
       },
 
       log(event) {

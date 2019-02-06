@@ -7,6 +7,7 @@
                         <v-text-field label="Stare hasło"
                                       v-model="userForm.old_password"
                                       :rules="requireRule"
+                                      type="password"
                                       required >
                         </v-text-field>
                     </v-flex>
@@ -15,6 +16,7 @@
                         <v-text-field label="Nowe hasło"
                                       v-model="userForm.new_password1"
                                       :rules="requireRule"
+                                      type="password"
                                       required >
                         </v-text-field>
                     </v-flex>
@@ -23,6 +25,7 @@
                         <v-text-field label="Powtórz nowe hasło"
                                       v-model="userForm.new_password2"
                                       :rules="requireRule"
+                                      type="password"
                                       required >
                         </v-text-field>
                     </v-flex>

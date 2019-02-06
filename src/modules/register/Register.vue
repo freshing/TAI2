@@ -96,7 +96,7 @@
       },
 			registerSuccessful () {
 				this.isErrorVisible = false;
-				this.$router.push('/login');
+				this.$router.push('/dashboard');
 			},
 			registerFailed () {
 				this.$refs.form.resetValidation();

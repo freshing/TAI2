@@ -3,7 +3,7 @@
     <v-label>Udostępnione dla mnie</v-label>
     <ReceivedFiles />
     <v-label>Udostępnione przeze mnie</v-label>
-    <SharedFiles />
+    <SharedFiles @unshare="update" :key="shared" />
   </v-container>
 </template>
 
@@ -21,42 +21,23 @@
     },
 
 		data: () => ({
-      files: [],
-      pagination: {
-        sortBy: 'name'
-      },
-      selected: [],
-      headers: [
-        {
-          text: 'Nazwa',
-          align: 'left',
-          value: 'name'
-        },
-        { text: 'Utworzono', value: 'is_dir' },
-        { text: 'Właściciel'},
-        { text: 'Pobierz'},
-
-      ],
+      shared: 0,
+      // received: 10,
 		}),
 
-		methods: {
-      log(event) {
-        console.log("log", event);
+    methods: {
+      update() {
+        this.shared += 1;
+        // this.received += 1;
       },
+    }
+  }
 
-      loadFiles() {
-				API.getSharedFiles()
-					.then( files => {
-            this.files = files;
-					});
-			},
-		},
+		// mounted() {
+    //   this.loadFiles();
+		// },
 
-		mounted() {
-      this.loadFiles();
-		},
 
-	}
 </script>
 
 <style scoped>

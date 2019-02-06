@@ -42,13 +42,8 @@ router.beforeEach((to, from, next) => {
     const token = config.getCsrftoken();
 
     if (authRequired && token == '') {
-      console.log('token',token);
         return next('/login');
     }
-
-    // if(to.meta.adminAuth && localStorage.role !== "ROLE_ADMIN") {
-    //     return next('/dashboard')
-    // }
 
     next();
 });

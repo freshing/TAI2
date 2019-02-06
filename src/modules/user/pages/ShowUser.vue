@@ -14,7 +14,7 @@
           </v-flex>
       </v-layout>
 
-      <v-layout justify-center row>
+      <!-- <v-layout justify-center row>
           <v-flex xs3>
               <v-card tile flat color="grey lighten-5">
                   <v-card-text> Email: </v-card-text>
@@ -26,7 +26,7 @@
                   <v-card-text> {{ userInfo.email }} </v-card-text>
               </v-card>
           </v-flex>
-      </v-layout>
+      </v-layout> -->
 
         <template slot="actions">
             <v-spacer></v-spacer>

@@ -45,7 +45,7 @@
        </td>
        <td>{{ props.item.name }}</td>
        <td class="text-xs-center">{{ props.item.creation_date }}</td>
-       <td class="text-xs-center">{{ 3 }}</td>
+       <!-- <td class="text-xs-center">{{ 3 }}</td> -->
        <td class="text-xs-center">
          <v-btn @click="download(props.item.name)" icon color="blue" flat v-if=!props.item.is_dir>
            <v-icon>fa-download</v-icon>
@@ -53,14 +53,20 @@
          <v-btn @click="changePath(props.item.path)" icon color="blue" flat v-if=props.item.is_dir>
            <v-icon>fa-folder-open</v-icon>
          </v-btn>
+         <v-btn @click="decrypt(props.item.path)" icon color="blue" flat v-if=isEncrypted(props.item)>
+           <v-icon>fa-lock-open</v-icon>
+         </v-btn>
+         <v-btn @click="encrypt(props.item.path)" icon color="blue" flat v-if=isDecrypted(props.item)>
+           <v-icon>fa-lock</v-icon>
+         </v-btn>
          <v-btn @click="deleteItem(props.item.path)" icon color="blue" flat>
            <v-icon>fa-trash</v-icon>
          </v-btn>
-         <v-btn @click="deleteItem(props.item.path)" icon color="blue" flat>
-           <v-icon>fa-lock</v-icon>
-         </v-btn>
-       </td>
-       <td class="text-xs-center">
+         <!-- <v-btn @click="getStats(props.item.path)" icon color="blue" flat>
+           <v-icon>fa-search</v-icon>
+         </v-btn> -->
+       <!-- </td>
+       <td class="text-xs-center"> -->
          <v-btn @click="share(props.item.path)" icon color="blue" flat>
            <v-icon>fa-share</v-icon>
          </v-btn>
@@ -96,9 +102,9 @@
           value: 'name'
         },
         { text: 'Utworzono', value: 'is_dir' },
-        { text: 'Pobrania' },
+        // { text: 'Pobrania' },
         { text: 'Akcje'},
-        { text: 'Udostępnij'},
+        // { text: 'Udostępnij'},
       ],
 		}),
 
@@ -107,15 +113,40 @@
       share(path) {
         let props = {
         	path: path,
-        	is_public: false,
+        	is_public: true,
         	shared_with: this.friends
         }
 
         API.shareItem(props);
       },
 
-      log(event) {
-        console.log("log", event);
+      isEncrypted(item) {
+        return !item.is_dir && item.name.includes('~encrypt');
+      },
+
+      isDecrypted(item) {
+        return !item.is_dir && !item.name.includes('~encrypt');
+      },
+
+      encrypt(path) {
+        let props = {
+        	password: 'asd'
+        }
+
+        API.encrypt(path, props);
+
+        this.changePath(this.$props['path']);
+      },
+
+      decrypt(path) {
+        let props = {
+        	password: 'asd',
+          decrypt: ''
+        }
+
+        API.encrypt(path, props);
+
+        this.changePath(this.$props['path']);
       },
 
       back() {
@@ -149,7 +180,12 @@
 
       changePath(path) {
         this.$emit('changePath', path);
-      }
+      },
+
+      getStats(path) {
+        API.getStats(path).then((stat) => console.log(stat));
+      },
+
 		},
 
 		mounted() {
