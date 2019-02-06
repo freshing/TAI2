@@ -11,7 +11,10 @@ function login(loginData) {
 
 function logout() {
 	return http.post('/rest-auth/logout/', null, config.addCsrfHeader())
-		.then(() => router.push('/login'))
+		.then(() => {
+			document.cookie = "csrftoken=";
+			router.push('/login')
+		})
 		.catch(() => handleApiError("Wystąpił błąd podczas wylogowania. Skontaktuj się z Administratorem"));
 }
 

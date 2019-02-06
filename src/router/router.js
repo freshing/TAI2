@@ -7,6 +7,7 @@ import Friends from '@/modules/friends/routes'
 import User from '@/modules/user/routes'
 import Files from '@/modules/files/routes'
 import Register from '@/modules/register/routes'
+import config from '@/http/httpConfig'
 
 Vue.use(Router)
 
@@ -38,9 +39,10 @@ let router = new Router({
 router.beforeEach((to, from, next) => {
     const publicPages = ['/login', '/register'];
     const authRequired = !publicPages.includes(to.path);
-    const loggedIn = localStorage.token;
+    const token = config.getCsrftoken();
 
-    if (authRequired && !loggedIn) {
+    if (authRequired && token == '') {
+      console.log('token',token);
         return next('/login');
     }
 

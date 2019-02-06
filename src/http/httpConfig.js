@@ -59,4 +59,5 @@ export default {
 	addCsrfHeader,
 	getConfigWithoutCredentials,
 	getConfigWithFile,
+	getCsrftoken,
 }
