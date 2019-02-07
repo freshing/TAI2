@@ -43,11 +43,14 @@
            hide-details
          ></v-checkbox> -->
        <!-- </td> -->
-       <td>{{ props.item.filename }}</td>
+       <td>{{ props.item.filename ? props.item.filename : props.item.name }}</td>
        <!-- <td class="text-xs-center">{{ props.item.creation_date }}</td> -->
        <td class="text-xs-center">
          <v-btn @click="download(props.item.id, props.item.filename)" icon color="blue" flat v-if=!props.item.is_dir>
            <v-icon>fa-download</v-icon>
+         </v-btn>
+         <v-btn @click="openFolder(props.item.id, props.item.path)" icon color="blue" flat v-if=props.item.is_dir>
+           <v-icon>fa-folder-open</v-icon>
          </v-btn>
        </td>
        <!-- <td class="text-xs-center">
@@ -117,6 +120,14 @@
 
       download(id, filename){
         API.downloadShared(id, filename)
+      },
+
+      openFolder(id, path) {
+        let pathArray = path.split('/');
+        pathArray.pop();
+        let backwardPath = pathArray.join('/');
+
+        API.getReceivedDir(id, backwardPath).then(files => this.files = files);
       },
 
       // deleteItem(item){

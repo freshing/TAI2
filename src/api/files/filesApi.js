@@ -54,6 +54,14 @@ function getReceivedFiles() {
 		.catch(() => handleApiError("Wystąpił błąd podczas wysyłania pliku. Skontaktuj się z Administratorem."));
 }
 
+function getReceivedDir(id, path) {
+	return http.get('/share/' + id + path)
+		.then(response => {
+			return response.data;
+		})
+		.catch(() => handleApiError("Wystąpił błąd podczas wysyłania pliku. Skontaktuj się z Administratorem."));
+}
+
 function getSharedFiles() {
 	return http.get('/share/my/')
 		.then(response => {
@@ -116,6 +124,7 @@ export default {
 	getFiles,
 	getSharedFiles,
 	getReceivedFiles,
+	getReceivedDir,
 	download,
 	downloadShared,
 	deleteItem,
